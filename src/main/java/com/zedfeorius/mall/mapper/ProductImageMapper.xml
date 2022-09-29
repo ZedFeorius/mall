@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zedfeorius.mall.mapper.ProductImageMapper">
+    <cache eviction="FIFO" flushInterval="100000" size="512" readOnly="true"/>
+
+    <select id="getProductImageList" resultType="com.zedfeorius.mall.entity.ProductImage">
+        SELECT
+            *
+        FROM
+            mall.productImage
+    </select>
+
+    <select id="getProductImageById" resultType="com.zedfeorius.mall.entity.ProductImage">
+        SELECT
+        *
+        FROM mall.productImage
+        <where>
+            <if test="productImageId != null">
+                productImageId = #{productImageId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertProductImage" parameterType="com.zedfeorius.mall.entity.ProductImage">
+        INSERT INTO
+            mall.productImage
+            (productImageType, productImageSrc,productImageProductId)
+        VALUES
+            (#{productImageType}, #{productImageSrc},#{productImageProductId})
+    </insert>
+
+    <delete id="deleteProductImage" parameterType="integer">
+        DELETE FROM mall.productImage
+        <where>
+            <if test="productImageId != null">
+                productImageId = #{productImageId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </delete>
+
+    <update id="updateProductImage" parameterType="com.zedfeorius.mall.entity.ProductImage">
+        UPDATE mall.productImage
+        <set>
+            <if test="productImageType != null">
+                productImageType = #{productImageType},
+            </if>
+            <if test="productImageSrc != null">
+                productImageSrc = #{productImageSrc},
+            </if>
+            <if test="productImageProductId != null">
+                productImageProductId = #{productImageProductId},
+            </if>
+        </set>
+        <where>
+            <if test="productImageId != null">
+                productImageId = #{productImageId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </update>
+</mapper>

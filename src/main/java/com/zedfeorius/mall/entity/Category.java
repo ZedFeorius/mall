@@ -8,7 +8,6 @@ public class Category {
     private Integer categoryId;
     private String categoryName;
     private String categoryImageSrc;
-
     private List<Product> productList;
 
     public Integer getCategoryId() {

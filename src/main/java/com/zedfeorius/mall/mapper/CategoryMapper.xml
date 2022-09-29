@@ -56,8 +56,4 @@
             </if>
         </where>
     </update>
-
-    <select id="getProductList" resultType="com.zedfeorius.mall.entity.Product">
-        SELECT * FROM mall.product
-    </select>
 </mapper>

@@ -2,6 +2,7 @@ package com.zedfeorius.mall.entity;
 
 
 import java.util.Date;
+import java.util.List;
 
 public class Product {
 
@@ -13,6 +14,7 @@ public class Product {
     private Date productCreateDate;
     private Integer productCategoryId;
     private Integer productIsEnabled;
+    private List<ProductImage> singleProductImageList;
 
 
     public Integer getProductId() {
@@ -86,4 +88,11 @@ public class Product {
         this.productIsEnabled = productIsEnabled;
     }
 
+    public List<ProductImage> getSingleProductImageList() {
+        return singleProductImageList;
+    }
+
+    public void setSingleProductImageList(List<ProductImage> singleProductImageList) {
+        this.singleProductImageList = singleProductImageList;
+    }
 }

@@ -1,7 +1,7 @@
 package com.zedfeorius.mall.entity;
 
 
-public class Propertyvalue {
+public class PropertyValue {
 
     private Integer propertyValueId;
     private String propertyValueValue;

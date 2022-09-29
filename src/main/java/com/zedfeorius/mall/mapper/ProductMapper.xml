@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zedfeorius.mall.mapper.ProductMapper">
+    <cache eviction="FIFO" flushInterval="100000" size="512" readOnly="true"/>
+
+    <select id="getProductList" resultType="com.zedfeorius.mall.entity.Product">
+        SELECT
+            *
+        FROM
+            mall.product
+    </select>
+
+    <select id="getProductById" resultType="com.zedfeorius.mall.entity.Product">
+        SELECT
+        *
+        FROM mall.product
+        <where>
+            <if test="productId != null">
+                productId = #{productId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertProduct" parameterType="com.zedfeorius.mall.entity.Product">
+        INSERT INTO
+            mall.product
+        (productName, productTitle, productPrice, productSalePrice, productCreateDate, productCategoryId)
+        VALUES
+            (#{productName,jdbcType=VARCHAR},#{productTitle},#{productPrice},#{productSalePrice},#{productCreateDate},#{productCategoryId})
+    </insert>
+
+    <delete id="deleteProduct" parameterType="integer">
+        DELETE FROM mall.product
+        <where>
+            <if test="productId != null">
+                productId = #{productId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </delete>
+
+    <update id="updateProduct" parameterType="com.zedfeorius.mall.entity.Product">
+        UPDATE mall.product
+        <set>
+            <if test="productName != null">
+                productName = #{productName,jdbcType=VARCHAR},
+            </if>
+            <if test="productTitle != null">
+                productTitle = #{productTitle}
+            </if>
+            <if test="productPrice != null">
+                productPrice = #{productPrice}
+            </if>
+            <if test="productSalePrice != null">
+                productSalePrice = #{productSalePrice}
+            </if>
+            <if test="productCreateDate != null">
+                productCreateDate = #{productCreateDate}
+            </if>
+            <if test="productCategoryId != null">
+                productCategoryId = #{productCategoryId}
+            </if>
+        </set>
+        <where>
+            <if test="productId != null">
+                productId = #{productId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </update>
+</mapper>

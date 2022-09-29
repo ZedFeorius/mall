@@ -1,11 +1,18 @@
 package com.zedfeorius.mall.controller;
 
+import com.zedfeorius.mall.entity.Category;
+import com.zedfeorius.mall.entity.Product;
+import com.zedfeorius.mall.entity.ProductImage;
 import com.zedfeorius.mall.service.CategoryService;
+import com.zedfeorius.mall.service.ProductImageService;
+import com.zedfeorius.mall.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author ZedFeorius
@@ -20,10 +27,36 @@ import javax.servlet.http.HttpServletRequest;
 public class ProductController {
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private ProductService productService;
+    @Autowired
+    private ProductImageService productImageService;
 
     @RequestMapping("/home")
     public String home(HttpServletRequest request) {
-        request.setAttribute("categoryList",categoryService.getCategoryList());
+        List<Category> categoryList = categoryService.getCategoryList();
+        List<Product> productList = productService.getProductList();
+        List<ProductImage> productImages = productImageService.getProductImageList();
+        for (Product product : productList) {
+            List<ProductImage> productImageList = new ArrayList<>();
+            for (ProductImage productImage : productImages) {
+                if (productImage.getProductImageProductId().equals(product.getProductId())){
+                    productImageList.add(productImage);
+                }
+            }
+            product.setSingleProductImageList(productImageList);
+        }
+
+        for (Category category : categoryList) {
+            List<Product> ps = new ArrayList<>();
+            for (Product product : productList) {
+                if (product.getProductCategoryId().equals(category.getCategoryId())){
+                    ps.add(product);
+                }
+            }
+            category.setProductList(ps);
+        }
+        request.setAttribute("categoryList",categoryList);
         return "fore/homePage";
     }
 }
