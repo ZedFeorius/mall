@@ -91,7 +91,7 @@
 						</div>
 						<a href="${ctx}/product?categoryId=${category.categoryId}"><img
 								class="banner_goods_show"
-								src="res/images/fore/WebsiteImage/show/${category.categoryId}.jpg"></a>
+								src="${ctx}/res/images/fore/WebsiteImage/show/${category.categoryId}.jpg"></a>
 						<div class="banner_goods_items">
 							<c:forEach items="${category.productList}" var="product" varStatus="i">
 								<c:if test="${i.index<8}">
