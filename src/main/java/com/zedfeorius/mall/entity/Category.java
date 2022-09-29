@@ -1,12 +1,15 @@
 package com.zedfeorius.mall.entity;
 
 
+import java.util.List;
+
 public class Category {
 
     private Integer categoryId;
     private String categoryName;
     private String categoryImageSrc;
 
+    private List<Product> productList;
 
     public Integer getCategoryId() {
         return categoryId;
@@ -34,4 +37,11 @@ public class Category {
         this.categoryImageSrc = categoryImageSrc;
     }
 
+    public List<Product> getProductList() {
+        return productList;
+    }
+
+    public void setProductList(List<Product> productList) {
+        this.productList = productList;
+    }
 }

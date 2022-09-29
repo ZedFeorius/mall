@@ -1,6 +1,7 @@
 package com.zedfeorius.mall.mapper;
 
 import com.zedfeorius.mall.entity.Category;
+import com.zedfeorius.mall.entity.Product;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -51,4 +52,10 @@ public interface CategoryMapper {
      * @return
      */
     Integer deleteCategory(@Param("categoryId") Integer categoryId);
+
+    /**
+     * 查询商品
+     * @return
+     */
+    List<Product> getProductList();
 }
