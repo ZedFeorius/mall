@@ -37,7 +37,9 @@ public class ProductController {
         List<Category> categoryList = categoryService.getCategoryList();
         List<Product> productList = productService.getProductList();
         List<ProductImage> productImages = productImageService.getProductImageList();
+
         List<Product> specialProductList = new ArrayList<>();
+
         for (Product product : productList) {
             List<ProductImage> productImageList = new ArrayList<>();
             for (ProductImage productImage : productImages) {
