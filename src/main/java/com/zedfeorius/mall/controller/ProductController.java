@@ -37,6 +37,7 @@ public class ProductController {
         List<Category> categoryList = categoryService.getCategoryList();
         List<Product> productList = productService.getProductList();
         List<ProductImage> productImages = productImageService.getProductImageList();
+        List<Product> specialProductList = new ArrayList<>();
         for (Product product : productList) {
             List<ProductImage> productImageList = new ArrayList<>();
             for (ProductImage productImage : productImages) {
@@ -45,6 +46,9 @@ public class ProductController {
                 }
             }
             product.setSingleProductImageList(productImageList);
+            if (product.getProductIsEnabled().equals(2)){
+                specialProductList.add(product);
+            }
         }
 
         for (Category category : categoryList) {
@@ -57,6 +61,7 @@ public class ProductController {
             category.setProductList(ps);
         }
         request.setAttribute("categoryList",categoryList);
+        request.setAttribute("specialProductList",specialProductList);
         return "fore/homePage";
     }
 }
