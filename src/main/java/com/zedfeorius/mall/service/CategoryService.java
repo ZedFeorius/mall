@@ -25,7 +25,7 @@ public interface CategoryService {
      * @param categoryId
      * @return
      */
-    Category getCategoryById(@Param("categoryId") Integer categoryId);
+    Category getCategoryById(Integer categoryId);
 
     /**
      * 新增
@@ -46,5 +46,5 @@ public interface CategoryService {
      * @param categoryId
      * @return
      */
-    Boolean deleteCategory(@Param("categoryId") Integer categoryId);
+    Boolean deleteCategory(Integer categoryId);
 }

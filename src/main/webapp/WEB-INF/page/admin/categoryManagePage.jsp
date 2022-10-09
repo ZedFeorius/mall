@@ -28,7 +28,7 @@
                 //清除数据
                 dataList.categoryName = null;
                 //获取数据
-                getData($(this), contextPath+"/admin/category/0/10", null);
+                getData($(this), contextPath+"/admin/categoryRefresh", null);
             });
             //点击table中的数据时
             $("#table_category_list").find(">tbody>tr").click(function () {
@@ -51,10 +51,10 @@
                     object.attr("disabled",false);
                     //显示分类统计数据
                     $("#category_count_data").text(data.categoryCount);
-                    if(data.categoryList.length > 0) {
-                        for (var i = 0; i < data.categoryList.length; i++) {
-                            var categoryId = data.categoryList[i].categoryId;
-                            var categoryName = data.categoryList[i].categoryName;
+                    if(data.length > 0) {
+                        for (var i = 0; i < data.length; i++) {
+                            var categoryId = data[i].categoryId;
+                            var categoryName = data[i].categoryName;
                             //显示分类数据
                             tbody.append("<tr><td><input type='checkbox' class='cbx_select' id='cbx_category_select_" + categoryId + "'><label for='cbx_category_select_" + categoryId + "'></label></td><td title='" + categoryName + "'>" + categoryName + "</td><td><span class='td_special' title='查看分类详情'><a href='javascript:void(0)' onclick='getChildPage(this)'>详情</a></span></td><td hidden class='categoryId'>" + categoryId + "</td></tr>");
                         }
@@ -99,6 +99,18 @@
             document.title = "Tmall管理后台 - " + title;
             //ajax请求页面
             ajaxUtil.getPage(url, null, true);
+        }
+
+        //删除分类
+        function deleteCategory(id){
+            $.post("deleteCategory/"+id, null, function (data) {
+                if (data){
+                    alert("Successfully removed Category, id=" + id)
+                    ajaxUtil.getPage("category/", null, true);
+                } else {
+                    alert("Failed")
+                }
+            })
         }
 
         //获取页码数据
@@ -150,8 +162,12 @@
             <tr>
                 <td><input type="checkbox" class="cbx_select" id="cbx_category_select_${category.categoryId}"><label for="cbx_category_select_${category.categoryId}"></label></td>
                 <td title="${category.categoryName}">${category.categoryName}</td>
-                <td><span class="td_special" title="查看分类详情"><a href="javascript:void(0)"
-                                                               onclick="getChildPage(this)">详情</a></span></td>
+                <td>
+                    <span class="td_special" title="查看分类详情">
+                        <a href="javascript:void(0)" onclick="getChildPage(this)">修改</a>
+                        <a href="javascript:void(0)" onclick="deleteCategory(${category.categoryId})">删除</a>
+                    </span>
+                </td>
                 <td hidden><span class="categoryId">${category.categoryId}</span></td>
             </tr>
         </c:forEach>
